@@ -1,6 +1,4 @@
 import sys
-input = sys.stdin.readline
-
 n = int(sys.stdin.readline())
 arr = [0] * (10000 + 1)
 
