@@ -15,7 +15,7 @@ while start <= end:
             hap += (mid - i)
     if hap <= k:
         start = mid + 1
-        result = max(mid,result)
+        result = mid
     else:
         end = mid - 1
 
