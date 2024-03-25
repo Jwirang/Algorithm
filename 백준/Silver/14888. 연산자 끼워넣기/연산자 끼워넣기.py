@@ -1,26 +1,30 @@
-import sys
-from itertools import permutations
-n = int(sys.stdin.readline())
-number = list(map(int, sys.stdin.readline().split()))
-add, sub, mul, div = map(int, sys.stdin.readline().split())
-max_result = - int(1e9)
-min_result = int(1e9)
+n = int(input())
+arr = list(map(int, input().split()))
+operator = list(map(int, input().split()))
 
-def dfs(add, sub, mul, div, sum, idx):
+max_result = float('-inf')
+min_result = float('inf')
+
+def dfs(depth, result):
     global max_result, min_result
-    if idx == n:
-        max_result = max(max_result, sum)
-        min_result = min(min_result, sum)
+    if depth == n - 1:
+        max_result = max(max_result, result)
+        min_result = min(min_result, result)
         return
-    if add:
-        dfs(add-1, sub, mul, div, sum + number[idx], idx + 1)
-    if sub:
-        dfs(add, sub-1, mul, div, sum - number[idx], idx + 1)
-    if mul:
-        dfs(add, sub, mul-1, div, sum * number[idx], idx + 1)
-    if div:
-        dfs(add, sub, mul, div-1, int(sum / number[idx]), idx + 1)
-        
-dfs(add, sub, mul, div, number[0], 1)
+    for i in range(4):
+        if operator[i] > 0:
+            operator[i] -= 1
+            new_result = calculate(result, arr[depth + 1], i)
+            dfs(depth + 1, new_result)
+            operator[i] += 1
+
+def calculate(n1, n2, op):
+    if op == 0: return n1 + n2
+    elif op == 1: return n1 - n2
+    elif op == 2: return n1 * n2
+    elif op == 3: return int(n1 / n2)  # 정수 나눗셈으로 변경
+
+dfs(0, arr[0])
+
 print(max_result)
 print(min_result)
