@@ -10,6 +10,7 @@ for _ in range(m):
     s, e = map(int, sys.stdin.readline().split())
     graph[s].append(e)
     graph[e].append(s)
+   # print(graph)
 
 visit = [False] * (n+1)
 
@@ -17,7 +18,7 @@ def dfs(v):
     visit[v] = True
     for i in graph[v]:
         if visit[i] == False:
-            visit[i] == True
+            #visit[i] == True
             dfs(i)
 count = 0
 for i in range(1, n+1):
