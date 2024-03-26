@@ -1,24 +1,24 @@
 import sys
 from collections import defaultdict
-
-sys.setrecursionlimit(10**7)
-
-def dfs(node, parent, graph):
-    for child in graph[node]:
-        if parent[child] == 0:
-            parent[child] = node
-            dfs(child, parent, graph)
+sys.setrecursionlimit(10 ** 7)
 
 n = int(sys.stdin.readline())
-graph = defaultdict(list)
 
+graph = [[] for _ in range(n + 1)]
 for _ in range(n - 1):
-    s, e = map(int, sys.stdin.readline().split())
-    graph[s].append(e)
-    graph[e].append(s)
+    a, b = map(int, sys.stdin.readline().split())
+    graph[a].append(b)
+    graph[b].append(a)
 
-parent = {i: 0 for i in range(1, n + 1)}
-dfs(1, parent, graph)
+parent = [0] * (n + 1)
+
+def dfs(node):
+    for i in graph[node]:
+        if parent[i] == 0:
+            parent[i] = node
+            dfs(i)
+
+dfs(1)
 
 for i in range(2, n + 1):
     print(parent[i])
