@@ -1,39 +1,38 @@
 import sys
 from collections import deque
+n, m, v = map(int, sys.stdin.readline().split())
 
-N, M, V = map(int, sys.stdin.readline().split())
+graph = [[] for _ in range(n + 1)]
 
-graph = [[False] * (N + 1) for _ in range(N + 1)]
-
-for _ in range(M):
+for _ in range(m):
     a, b = map(int, sys.stdin.readline().split())
-    graph[a][b] = True
-    graph[b][a] = True
+    graph[a].append(b)
+    graph[b].append(a)
+    graph[a].sort()
+    graph[b].sort()
 
-visited1 = [False] * (N + 1) 
-visited2 = [False] * (N + 1)  
-
-
-def bfs(V):
-    q = deque([V])
-    visited2[V] = True  
-    while q: 
-        V = q.popleft() 
-        print(V, end=" ") 
-        for i in range(1, N + 1):  
-            if not visited2[i] and graph[V][i]:  
-                q.append(i)
-                visited2[i] = True  
-
-
-def dfs(V):
-    visited1[V] = True
-    print(V, end=" ")
-    for i in range(1, N + 1):
-        if not visited1[i] and graph[V][i]:
+visit = [False] * (n + 1)
+def dfs(node):
+    visit[node] = True
+    print(node, end=' ')
+    for i in graph[node]:
+        if visit[i] == False:
             dfs(i)
 
+visited = [False] * (n + 1)           
+def bfs(node):
+    q = deque([node])
+    visited[node] = True
+    while q:
+        now = q.popleft()
+        print(now, end=' ')
+        for i in graph[now]:
+            if visited[i] == False:
+                q.append(i)
+                visited[i] = True
+            
 
-dfs(V)
+
+dfs(v)
 print()
-bfs(V)
+bfs(v)
