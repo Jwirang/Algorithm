@@ -24,4 +24,5 @@ while q:
         if dist[next] > cost:
             dist[next] = cost
             heapq.heappush(q, [cost, next])
+            
 print(dist[end])
