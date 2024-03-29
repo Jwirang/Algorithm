@@ -1,12 +1,14 @@
 import sys
 n = int(sys.stdin.readline())
-n_list = list(map(int, sys.stdin.readline().split()))
+n_list = [0] + list(map(int, sys.stdin.readline().split()))
 
-result = [1] * n
-count = 0
-for i in range(1, n):
-    for j in range(i):
+dp = [0] * (n + 1)
+
+for i in range(1, n + 1):
+    mx = 0
+    for j in range(0, i):
         if n_list[i] > n_list[j]:
-            result[i] = max(result[i], result[j] + 1)
+            mx = max(mx, dp[j])
+    dp[i] = mx + 1
 
-print(max(result))
+print(max(dp))
