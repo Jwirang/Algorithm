@@ -11,7 +11,7 @@ dp[0] = 1
 for i in range(len(s_list) + 1):
     for j in a:
         j_len = len(j.strip())
-        if i >= j_len and dp[i - j_len] == 1 and s_list[i - j_len:i] == list(j.strip()):
+        if dp[i - j_len] == 1 and s_list[i - j_len:i] == list(j.strip()):
             dp[i] = 1
 
 if dp[len(s_list)]:
