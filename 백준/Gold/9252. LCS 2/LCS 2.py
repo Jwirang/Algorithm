@@ -16,11 +16,8 @@ for i in range(1, len1 + 1):
             else:
                 matrix[i][j] = matrix[i][j - 1]
 
-# print(len(matrix[-1][-1]))
+result = matrix[-1][-1]     
+print(len(result))
 
-# if len(matrix[-1][-1]) != 0:
-#     print(matrix[-1][-1])
-
-
-result = matrix[-1][-1]          
-print(len(result), result, sep='\n')
+if len(result) != 0:
+    print(result)
